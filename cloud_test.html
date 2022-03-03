@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $("button").click(function () {
+            console.log($('#input_str').val());
+            $.ajax({
+                url: 'http://127.0.0.1/cloud',
+                type: 'POST',
+                data: JSON.stringify({query: $('#input_str').val()}),
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                success: function (response) {
+                    console.log(response)
+                    var out = document.getElementById("out")
+                    out.src = "data:image/jpeg;base64, " + response.replace('"', '').replace('"', '')
+                }
+
+            });
+
+        });
+    });
+
+
+</script>
+
+Enter Text:<br><textarea id="input_str"></textarea>
+<br>
+<button id="send_btn">Submit</button>
+<br>
+<br>
+<br>
+<image id="out" src=""></image>
+</body>
+</html>
